@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App6 Flight-Control Proof of Concept</title>
+  <style>
+    :root {
+      --bg: #f3f6f9;
+      --panel: #ffffff;
+      --ink: #16202a;
+      --muted: #4d5d6c;
+      --line: #d5dde5;
+      --accent: #0d5cab;
+      --accent-2: #c2410c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(13, 92, 171, 0.08), rgba(13, 92, 171, 0)),
+        var(--bg);
+    }
+
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f2740, #1d4e89);
+      color: #fff;
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 16px 40px rgba(15, 39, 64, 0.2);
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(22, 32, 42, 0.06);
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.35rem;
+    }
+
+    p, li {
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      color: var(--ink);
+      font-size: 0.95rem;
+    }
+
+    .video {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #dbe5ef;
+      border: 1px solid var(--line);
+    }
+
+    .video iframe,
+    .video .placeholder {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      background:
+        radial-gradient(circle at top, rgba(13, 92, 171, 0.12), transparent 45%),
+        #eef4f9;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .steps {
+      border-left: 4px solid var(--accent-2);
+      padding-left: 14px;
+      color: var(--ink);
+    }
+
+    footer {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>App6 Flight-Control Proof of Concept</h1>
+      <p>
+        This GitHub Pages site presents a real-time systems project built on an ESP32 using FreeRTOS.
+        The project models a Lockheed Martin pilot-training flight-control support node, where timing
+        matters just as much as correctness. The system separates sensor input, control logic, safety
+        monitoring, rendering load, telemetry, heartbeat behavior, and an emergency override interrupt.
+      </p>
+      <div class="facts">
+        <span class="tag">ESP32 + FreeRTOS</span>
+        <span class="tag">Hard and Soft Real-Time Tasks</span>
+        <span class="tag">UART Proof Logging</span>
+        <span class="tag">Wokwi Demo</span>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="panel">
+        <h2>Project Summary</h2>
+        <p>
+          The potentiometer acts as the pilot yoke-position sensor, the pushbutton acts as an emergency
+          override interrupt, the green LED is the system heartbeat, the red LED indicates a hard fault,
+          and the blue LED shows override mode. The main real-time goal is to prove that the hard control
+          path meets its deadlines while soft background tasks continue running.
+        </p>
+      </section>
+
+      <section class="panel">
+        <h2>What It Demonstrates</h2>
+        <ul>
+          <li>Periodic hard tasks for input, control, and safety</li>
+          <li>Soft tasks for rendering load, telemetry, and heartbeat</li>
+          <li>A minimal ISR that wakes a task using a binary semaphore</li>
+          <li>A one-slot queue that keeps only the newest control sample</li>
+          <li>Proof logging that shows latency and deadline status</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="panel" style="margin-top: 18px;">
+      <h2>Demo Video</h2>
+      <p>
+        Replace the placeholder below with your YouTube embed link before publishing. On GitHub Pages,
+        this becomes the public demo you can share in class, on a resume, or in a portfolio.
+      </p>
+      <div class="video">
+        <div class="placeholder">
+          <div>
+            <strong>YouTube embed goes here</strong><br>
+            Replace this block with an iframe using your video URL.
+          </div>
+        </div>
+      </div>
+      <p class="steps">
+        Quick swap: replace the `.placeholder` block with a normal YouTube iframe using the
+        `https://www.youtube.com/embed/VIDEO_ID` format.
+      </p>
+    </section>
+
+    <div class="grid">
+      <section class="panel">
+        <h2>Public Links</h2>
+        <ul>
+          <li><a href="../App6/src/readme.md">Project README</a></li>
+          <li><a href="../App6/src/main.ino">Firmware Source</a></li>
+          <li><a href="../App6/src/diagram.json">Wokwi Hardware Diagram</a></li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>GitHub Pages Setup</h2>
+        <ol>
+          <li>Push this project to GitHub.</li>
+          <li>In repository settings, open Pages.</li>
+          <li>Select “Deploy from a branch”.</li>
+          <li>Choose the main branch and `/docs` folder.</li>
+          <li>Paste your YouTube embed URL into this page.</li>
+        </ol>
+      </section>
+    </div>
+
+    <footer>
+      Built for a real-time systems assignment. Intended to provide a simple public project page
+      that can be reused in a future portfolio.
+    </footer>
+  </div>
+</body>
+</html>
